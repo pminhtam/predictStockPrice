@@ -27,8 +27,8 @@ df = np.array(df)
 
 scalerLabel = MinMaxScaler(feature_range=(0,1))
 dataLabel = data[[label]]
-dataLabel = scalerLabel.fit_transform(dataLabel)
 
+dataLabel = scalerLabel.fit_transform(dataLabel)
 train_size = int(len(df)*0.8)
 test_size = len(df) - train_size
 train,test = df[0:train_size,:],df[train_size:len(data),:]
@@ -75,6 +75,11 @@ model.fit(X_train,y_train,epochs=1,batch_size=10)
 # accuracy = model.score(X_test,y_test)
 testPredict = model.predict(X_test)
 trainPredict = model.predict(X_train)
+
+trainPredict = np.reshape(trainPredict, (len(trainPredict),1))
+testPredict = np.reshape(testPredict, (len(testPredict),1))
+
+
 trainPredict = scalerLabel.inverse_transform(trainPredict)
 testPredict = scalerLabel.inverse_transform(testPredict)
 
@@ -99,4 +104,4 @@ plt.plot(trainPlot)
 plt.plot(testPlot)
 plt.legend(loc = 4)
 plt.title('Neural')
-plt.show()
+#plt.show()

@@ -7,6 +7,10 @@ import pandas as pd
 from sklearn.linear_model import LinearRegression
 import matplotlib.pyplot as plt
 # df = quandl.get("EOD/KO", authtoken="37T_cbaygisqktDcF7zZ",start_date = "2016-1-1")
+
+column = ['High','Low','Volume','Adj Close']
+label = 'Adj Close'
+
 data = pd.read_csv("D:/google_driver/Code/python/machine_learning_Web_Toturial/lay_du_lieu_internet/NASDAQ_yahoo.csv")
 df = data[['High','Low','Volume','Adj Close']]
 df = df.astype('float32')
@@ -61,6 +65,11 @@ print(accuracy)
 
 testPredict = model.predict(X_test)
 trainPredict = model.predict(X_train)
+
+trainPredict = np.reshape(trainPredict, (len(trainPredict),1))
+testPredict = np.reshape(testPredict, (len(testPredict),1))
+
+
 trainPredict = scalerLabel.inverse_transform(trainPredict)
 testPredict = scalerLabel.inverse_transform(testPredict)
 
